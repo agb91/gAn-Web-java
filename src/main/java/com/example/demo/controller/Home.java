@@ -29,7 +29,7 @@ public class Home {
 	
 	private List<String> getList()
 	{
-		List<String> result = Arrays.asList();
+		List<String> result = new ArrayList<String>();
 		
 		File folder = new File("C:\\Users\\adamioli\\Desktop\\1182\\mail\\DBADIST 791906_PMUTUI\\");
 		File[] listOfFiles = folder.listFiles();
