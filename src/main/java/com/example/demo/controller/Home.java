@@ -31,7 +31,7 @@ public class Home {
 	{
 		List<String> result = new ArrayList<String>();
 		
-		File folder = new File("C:\\Users\\adamioli\\Desktop\\1182\\mail\\DBADIST 791906_PMUTUI\\");
+		File folder = new File("/home/andrea/Desktop/GAN REPO/gAn-web");
 		File[] listOfFiles = folder.listFiles();
 
 		for (File file : listOfFiles) {
