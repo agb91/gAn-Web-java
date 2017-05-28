@@ -1,11 +1,29 @@
 package com.example.demo.executor;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class SendToExecute {
 	
+	@NotNull
+    @Size(min=2, max=30)
 	private String analysisSingle = "none";
+	
+	@NotNull
+    @Size(min=2, max=30)
 	private String analysisMultiple = "none";
+	
+	@NotNull
+	@Min(10000)
 	private String runS1 = "none";
+	
+	@NotNull
+	@Min(10000)
 	private String runM1 = "none";
+	
+	@NotNull
+	@Min(10000)
 	private String runM2 = "none";
 	
 

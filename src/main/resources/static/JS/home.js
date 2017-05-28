@@ -9,9 +9,9 @@ $( document ).ready(function() {
     //version of the interface, some other times in multiple 
     //validate the inserted runs
     //first of all, disable the run-send-button (until the run number isn't correct)
-    //$( "#sendRunButtonSingle" ).prop("disabled",true);
+    $( "#sendRunButtonSingle" ).prop("disabled",true);
     $( "#warningRunNumberSingle" ).hide();
-    //$( "#sendRunButtonMultiple" ).prop("disabled",true);
+    $( "#sendRunButtonMultiple" ).prop("disabled",true);
     $( "#warningRunNumberMultiple" ).hide();
     $( "#warningSelectAnalysisSingle" ).hide();
     $( "#warningSelectAnalysisMultiple" ).hide();
@@ -20,7 +20,7 @@ $( document ).ready(function() {
     //at the beginning you must choose what kind of analyses do
     $( "#workBlock" ).hide();
 
-    /*$( "#whichRunSingle" ).keyup(function() {//check every time the user uses the keyboard 
+    $( "#whichRunSingle" ).keyup(function() {//check every time the user uses the keyboard 
         validate( 0 );
     });  
     $( "#whichRunsMultiple" ).keyup(function() {//check every time the user uses the keyboard 
@@ -53,7 +53,7 @@ $( document ).ready(function() {
     $( "#mouseOverTargetMultiple" ).mouseover(function() {
         validate( 1 );
     });
-*/
+
 
 });
 
@@ -189,121 +189,119 @@ function selectDate( thisDate )
     //alert($("#run"+thisDate);
 }
 
-//divide the string by semi-colon, point, comma (all accepted divisors), check if the chucks are numbers
-/*function validate( n ) 
+function validateSingle()
 {
-    if( n == 0)// if is single run
+    var insertedRun = readCleanRun( 0 );
+    var insertedArray = insertedRun.split(";"); 
+    var singleRun;
+   
+    var numberProblems = 0;
+    var analysisProblems = 0;
+    if ( insertedArray.length > 1 )
     {
-        var insertedRun = readCleanRun( 0 );
-        var insertedArray = insertedRun.split(";"); 
-        var singleRun;
-       
-        var numberProblems = 0;
-        var analysisProblems = 0;
-        if ( insertedArray.length > 1 )
+        numberProblems++;
+    }
+    //have you selected an analysis?
+    if( $("#spanSelectAnAnalysisS").text() == "Select an analysis"  )
+    {
+        analysisProblems++;
+        //alert("analysis problems");
+    }
+    for (i in insertedArray) {
+        insertedArray[i] = insertedArray[i].trim();
+        if ( acceptable ( insertedArray[ i ] ) == 1 )
         {
             numberProblems++;
         }
-        //have you selected an analysis?
-        if( $("#buttonSelectAnalysisSingle").text() == "Select an Analysis:"  )
-        {
-            analysisProblems++;
-            //alert("analysis problems");
-        }
-        for (i in insertedArray) {
-            insertedArray[i] = insertedArray[i].trim();
-            if ( acceptable ( insertedArray[ i ] ) == 1 )
-            {
-                numberProblems++;
-            }
-        }
+    }
 
-        if (numberProblems == 0)        
-	{
-            $("#warningRunNumberSingle").hide();
-	    $( "#rowOfSingleInput" ).removeClass( "has-error has-feedback" );
-        }
-        else
-        {
-            $( "#warningRunNumberSingle" ).show();
-	    $( "#rowOfSingleInput" ).addClass( "has-error has-feedback" );
-        }
-
-        if (analysisProblems == 0)        
-	{
-            $("#warningSelectAnalysisSingle").hide();
-        }
-        else
-        {
-            $("#warningSelectAnalysisSingle").show();
-        }
-
-        //alert("not numeric objects: " + noNumeric);
-        if(numberProblems==0 && analysisProblems == 0)
-        {
-            $("#sendRunButtonSingle").prop("disabled",false);
-            $("#sendRunButtonSingle").removeClass( "red" ).addClass( "green" );        }
-        else
-        {
-            $("#sendRunButtonSingle").prop("disabled",true);
-            $("#sendRunButtonSingle").removeClass( "green" ).addClass( "red" );
-        }
-    }  
-    else // if it is multiple run
+    if (numberProblems == 0)        
     {
-        var insertedRun = readCleanRun( 1 );
+        $("#warningRunNumberSingle").hide();
+        $( "#rowOfSingleInput" ).removeClass( "has-error has-feedback" );
+    }
+    else
+    {
+        $( "#warningRunNumberSingle" ).show();
+        $( "#rowOfSingleInput" ).addClass( "has-error has-feedback" );
+    }
+
+    if (analysisProblems == 0)        
+    {
+        $("#warningSelectAnalysisSingle").hide();
+    }
+    else
+    {
+        $("#warningSelectAnalysisSingle").show();
+    }
+
+    //alert("not numeric objects: " + noNumeric);
+    if(numberProblems==0 && analysisProblems == 0)
+    {
+        $("#sendRunButtonSingle").prop("disabled",false);
+        $("#sendRunButtonSingle").removeClass( "red" ).addClass( "green" );        }
+    else
+    {
+        $("#sendRunButtonSingle").prop("disabled",true);
+        $("#sendRunButtonSingle").removeClass( "green" ).addClass( "red" );
+    }
+}
+
+function validateMultiple()
+{
+	var insertedRun = readCleanRun( 1 );
 	var insertedRunSecond = readCleanRunSecond();
-        var insertedArray = insertedRun.split(";"); 
-        var MultipleRuns;
-       
-        var numberProblems = 0;
+    var insertedArray = insertedRun.split(";"); 
+    var MultipleRuns;
+   
+    var numberProblems = 0;
 	var numberProblemsSecond = 0;
-        var analysisProblems = 0;
+    var analysisProblems = 0;
 
-        //have you selected an analysis?
-        if( $("#buttonSelectAnalysisMultiple").text() == "Select an Analysis:"  )
-        {
-            analysisProblems++;
-        }
+    //have you selected an analysis?
+    if( $("#spanSelectAnAnalysisM").text() == "Select an analysis"  )
+    {
+        analysisProblems++;
+    }
 
-        for (i in insertedArray) //work on the first input field
+    for (i in insertedArray) //work on the first input field
 	{
-            insertedArray[i] = insertedArray[i].trim();
-            if ( acceptable ( insertedArray[ i ] ) == 1 )
-            {
-                numberProblems++;
-            }
+        insertedArray[i] = insertedArray[i].trim();
+        if ( acceptable ( insertedArray[ i ] ) == 1 )
+        {
+            numberProblems++;
         }
-	
+    }
+
 	if ( acceptable ( insertedRunSecond ) == 1 )
 	{
 	    numberProblemsSecond++;
 	}
 
 	//related to the first input
-        if (numberProblems == 0)        
+    if (numberProblems == 0)        
 	{
-            //$( "#warningRunNumberMultiple" ).hide();
+        //$( "#warningRunNumberMultiple" ).hide();
 	    $( "#rowOfMultipleInputFirst" ).removeClass( "has-error has-feedback" );
-        }
-        else
-        {
-            //$( "#warningRunNumberMultiple" ).show();
-	    $( "#rowOfMultipleInputFirst" ).addClass( "has-error has-feedback" );
-        }
+    }
+    else
+    {
+        //$( "#warningRunNumberMultiple" ).show();
+    	$( "#rowOfMultipleInputFirst" ).addClass( "has-error has-feedback" );
+    }
 
 	//related to the second input
-        if (numberProblemsSecond == 0)        
-	{
-            //$( "#warningRunNumberMultiple" ).hide();
-	    $( "#rowOfMultipleInputSecond" ).removeClass( "has-error has-feedback" );
-        }
-        else
-        {
-            //$( "#warningRunNumberMultiple" ).show();
-	    $( "#rowOfMultipleInputSecond" ).addClass( "has-error has-feedback" );
-        }
-	
+    if (numberProblemsSecond == 0)        
+    {
+        //$( "#warningRunNumberMultiple" ).hide();
+    	$( "#rowOfMultipleInputSecond" ).removeClass( "has-error has-feedback" );
+    }
+    else
+    {
+        //$( "#warningRunNumberMultiple" ).show();
+    	$( "#rowOfMultipleInputSecond" ).addClass( "has-error has-feedback" );
+    }
+
 	var totNumbersProblems = numberProblems + numberProblemsSecond;
 	if( totNumbersProblems == 0 )
 	{
@@ -314,25 +312,38 @@ function selectDate( thisDate )
 	    $( "#warningRunNumberMultiple" ).show();	
 	}
 
-        if (analysisProblems == 0)        
-	{
-            $("#warningSelectAnalysisMultiple").hide();
-        }
-        else
-        {
-            $("#warningSelectAnalysisMultiple").show();
-        }
+    if (analysisProblems == 0)        
+    {
+        $("#warningSelectAnalysisMultiple").hide();
+    }
+    else
+    {
+        $("#warningSelectAnalysisMultiple").show();
+    }
 
-        //alert("not numeric objects: " + noNumeric);
-        if(numberProblems==0 && analysisProblems == 0)
-        {
-            $("#sendRunButtonMultiple").prop("disabled",false);
-            $("#sendRunButtonMultiple").removeClass( "red" ).addClass( "green" );        }
-        else
-        {
-            $("#sendRunButtonMultiple").prop("disabled",true);
-            $("#sendRunButtonMultiple").removeClass( "green" ).addClass( "red" );
-        }
+    //alert("not numeric objects: " + noNumeric);
+    if(numberProblems==0 && analysisProblems == 0)
+    {
+        $("#sendRunButtonMultiple").prop("disabled",false);
+        $("#sendRunButtonMultiple").removeClass( "red" ).addClass( "green" );        
+    }
+    else
+    {
+        $("#sendRunButtonMultiple").prop("disabled",true);
+        $("#sendRunButtonMultiple").removeClass( "green" ).addClass( "red" );
+    }
+}
+
+//divide the string by semi-colon, point, comma (all accepted divisors), check if the chucks are numbers
+function validate( n ) 
+{
+    if( n == 0)// if is single run
+    {
+    	validateSingle();
+    }  
+    else // if it is multiple run
+    {
+        validateMultiple();
     }  
 
     if( $( "#areaBlock" ).is(":visible") )// special case! if we use input area the validation is different (now a refactor is needed..)
@@ -340,7 +351,7 @@ function selectDate( thisDate )
 	var analysisProblems = 0;
 
 	//have you selected an analysis?
-        if( $("#buttonSelectAnalysisMultiple").text() == "Select an Analysis:"  )
+        if( $("#buttonSelectAnalysisMultiple").text() == "Select an analysis"  )
         {
             analysisProblems++;
         }
@@ -357,7 +368,7 @@ function selectDate( thisDate )
 		
     } 
 }
-*/
+
 
 function startSystem( n )
 {
@@ -379,7 +390,7 @@ function manageWait( n ) {
 }
 
 //check if there is another chunk with the same name, (double runs are useless)
-/*function checkAlreadyExist(needle)
+function checkAlreadyExist(needle)
 {
         needle = " " + needle; //javascript wants a string or it will crash with the trim....
         //alert("needle: " + needle);
@@ -395,7 +406,7 @@ function manageWait( n ) {
             }
         }
         return alreadyExist;
-}*/
+}
 
 
 function setAnalysisSingle( name , event )
@@ -414,4 +425,17 @@ function setAnalysisMultiple( name , event )
 	$( "#spanSelectAnAnalysisM").val(toInsert);
 	$( "#spanSelectAnAnalysisM").html(toInsert);
 	$( "#spanSelectAnAnalysisM").text(toInsert);
+}
+
+function acceptable( r )
+{
+    //alert(r);
+    //console.log(r);
+    var risp = 1;
+    if($.isNumeric(r) )
+    {  
+        risp = 0;
+    }
+    //console.log(risp);
+    return risp;
 }
