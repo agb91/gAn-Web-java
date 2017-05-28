@@ -7,9 +7,9 @@
 
     .copyright
     {
-	position: fixed;
-	bottom: 2px;
-	right: 10px;
+        position: fixed;
+        bottom: 2px;
+        right: 10px;
     }
 
     .height50
@@ -34,14 +34,14 @@
 
     .moveUpSetting
     {
-	position: relative;
-	top: -131px
+        position: relative;
+        top: -131px
     }
 
     .styleArea
     {
         //width: 103%;
-    }	
+    }        
 
     .littleRight
     {
@@ -73,8 +73,8 @@
 
     .transparent
     {
-	opacity: 0.4;
-	pointer-events: none;
+        opacity: 0.4;
+        pointer-events: none;
     }
 
     .borderGroupInternal
@@ -100,8 +100,8 @@
     .borderLight
     {
         border-radius: 5px;
-	   background-color: $borderInternal;        
-	    padding-left: 7px; 
+           background-color: $borderInternal;        
+            padding-left: 7px; 
         width: 100%;
     }
 
@@ -246,13 +246,13 @@
 
     .advancedSettings
     {
-	margin-top: -92px;
+        margin-top: -92px;
     }
 
     .settingButton
     {
         font-weight: bold;
         padding: 15px;
-	width: 80%;
+        width: 80%;
     }
 }

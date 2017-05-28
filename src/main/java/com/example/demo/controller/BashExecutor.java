@@ -4,29 +4,34 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.executor.OggettoParametriRun;
+import com.example.demo.executor.SendToExecute;
 
 @Controller
 @RequestMapping("/execute")
 public class BashExecutor {
 	
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody OggettoParametriRun getParameters( @RequestParam("para1") String para1 , @RequestParam("para2") String para2 )
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView getParameters( @ModelAttribute SendToExecute sendToExecute )
     {
-    	OggettoParametriRun opr = new OggettoParametriRun();
-    	opr.setPara1(para1);
-    	opr.setPara2(para2);
-    	execute(opr);
-    	return opr;
+    	System.out.println(sendToExecute.toString());
+    	
+    	ModelAndView mav = new ModelAndView();
+    	SendToExecute opr = new SendToExecute();
+    	
+    	//execute(opr);
+    	mav.setViewName("executeView");
+    	return mav;
     }
     
-    private void execute(OggettoParametriRun opr)
+    private void execute(SendToExecute opr)
     {
 		StringBuffer output = new StringBuffer();
 		String command = "ping 8.8.8.8";
