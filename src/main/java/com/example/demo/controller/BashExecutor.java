@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,19 @@ public class BashExecutor {
     	ModelAndView mav = new ModelAndView();
     	SendToExecute opr = new SendToExecute();
     	
-    	//execute(opr);
+    	execute(opr);
+    	mav.setViewName("executeView");
+    	return mav;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET)//just for testing
+    public ModelAndView getParametersGET()
+    {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	SendToExecute opr = new SendToExecute();
+    	
+    	execute(opr);
     	mav.setViewName("executeView");
     	return mav;
     }
@@ -38,12 +51,13 @@ public class BashExecutor {
 		
 		Process p;
 		try {
-			p = Runtime.getRuntime().exec(command);
+			p = Runtime.getRuntime().exec(command + " -n 6");
 			p.waitFor();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line = "";
 			while ((line = reader.readLine())!= null) {
 				output.append(line + "\n");
+				System.out.println(line + " \n ");
 			}
 
 		} catch (Exception e) {
