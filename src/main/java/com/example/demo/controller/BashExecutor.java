@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,11 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.executor.SendToExecute;
 
+
 @Controller
 @RequestMapping("/execute")
 public class BashExecutor {
 	
-
+	private String pathTogAn = "/opt/lampp/htdocs/test-interChangeble/gAn-NEWWAY";
+	
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView getParameters( @ModelAttribute SendToExecute sendToExecute )
     {
@@ -26,6 +29,8 @@ public class BashExecutor {
     	
     	ModelAndView mav = new ModelAndView();
     	SendToExecute opr = new SendToExecute();
+    	
+    	opr.setPath(pathTogAn);
     	
     	execute(opr);
     	mav.setViewName("executeView");
@@ -38,7 +43,7 @@ public class BashExecutor {
     	
     	ModelAndView mav = new ModelAndView();
     	SendToExecute opr = new SendToExecute();
-    	
+    	opr.setPath(pathTogAn);
     	execute(opr);
     	mav.setViewName("executeView");
     	return mav;
@@ -47,15 +52,22 @@ public class BashExecutor {
     private void execute(SendToExecute opr)
     {
 		StringBuffer output = new StringBuffer();
-		String command = "ping 8.8.8.8";
+		String command = "./src/main/resources/static/script/gAnStart.sh";
 		
 		Process p;
 		try {
-			p = Runtime.getRuntime().exec(command + " -n 6");
+			System.out.println("complete command: " + command + " " + opr.getPath());
+			p = Runtime.getRuntime().exec( command + " " + opr.getPath() );
 			p.waitFor();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = "";
+			BufferedReader reader2 = new BufferedReader(new InputStreamReader(p.getErrorStream() ));
+			
+			String line = "";
 			while ((line = reader.readLine())!= null) {
+				output.append(line + "\n");
+				System.out.println(line + " \n ");
+			}
+			while ((line = reader2.readLine())!= null) {
 				output.append(line + "\n");
 				System.out.println(line + " \n ");
 			}

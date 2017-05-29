@@ -6,25 +6,12 @@ import javax.validation.constraints.Size;
 
 public class SendToExecute {
 	
-	@NotNull
-    @Size(min=2, max=30)
 	private String analysisSingle = "none";
-	
-	@NotNull
-    @Size(min=2, max=30)
 	private String analysisMultiple = "none";
-	
-	@NotNull
-	@Min(10000)
 	private String runS1 = "none";
-	
-	@NotNull
-	@Min(10000)
 	private String runM1 = "none";
-	
-	@NotNull
-	@Min(10000)
 	private String runM2 = "none";
+	private String path = "/";
 	
 
 	public String getAnalysisSingle() {
@@ -60,6 +47,12 @@ public class SendToExecute {
 	public String toString()
 	{
 		return this.runS1 + "---" + this.runM1 + "|" + this.runM2 + ";;;" + this.analysisSingle + "|" + this.analysisMultiple;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 }
