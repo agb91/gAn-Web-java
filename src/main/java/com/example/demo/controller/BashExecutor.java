@@ -52,12 +52,26 @@ public class BashExecutor {
     private void execute(SendToExecute opr)
     {
 		StringBuffer output = new StringBuffer();
-		String command = "./src/main/resources/static/script/gAnStart.sh";
+		String commandSingle = "./src/main/resources/static/script/gAnStartSingle.sh";
+		String commandMultiple = "./src/main/resources/static/script/gAnStartMultiple.sh";
+		
 		
 		Process p;
 		try {
-			System.out.println("complete command: " + command + " " + opr.getPath());
-			p = Runtime.getRuntime().exec( command + " " + opr.getPath() );
+			
+			String commandWithArgs; 
+			if( opr.getRunM2().equalsIgnoreCase("none") )
+			{ //single
+				commandWithArgs = commandSingle + " " + opr.getPath() + " " + opr.getRunS1() 
+				+ " " + opr.getAnalysisSingle();
+			}
+			else //multiple
+			{
+				commandWithArgs = commandMultiple + " " + opr.getPath() + " " + opr.getRunM1() + " " + opr.getRunM2()
+				+ " " + opr.getAnalysisMultiple();
+			}
+			
+			p = Runtime.getRuntime().exec( commandWithArgs );
 			p.waitFor();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			BufferedReader reader2 = new BufferedReader(new InputStreamReader(p.getErrorStream() ));
