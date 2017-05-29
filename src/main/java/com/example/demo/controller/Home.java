@@ -44,22 +44,26 @@ public class Home {
 	{
 		List<String> result = new ArrayList<String>();
 		
-		File folder = new File(path);
-		File[] listOfFiles = folder.listFiles();
-
-		for (File file : listOfFiles) {
-		    if (file.isFile()) {
-		    	
-		    	String name = file.getName();
-		    	String[] parts = name.split("\\.");
-		    	String toAdd = parts[0];
-		    	if( !result.contains(toAdd) )
-		    	{
-		    		result.add( toAdd );
-		    	}
-		    }
+		try{
+			File folder = new File(path);
+			File[] listOfFiles = folder.listFiles();
+	
+			for (File file : listOfFiles) {
+			    if (file.isFile()) {
+			    	
+			    	String name = file.getName();
+			    	String[] parts = name.split("\\.");
+			    	String toAdd = parts[0];
+			    	if( !result.contains(toAdd) )
+			    	{
+			    		result.add( toAdd );
+			    	}
+			    }
+			}
+		}catch(Exception e)
+		{
+			
 		}
-		
 		return result;
 	}
 	
@@ -71,29 +75,32 @@ public class Home {
 		RunNumDate result = new RunNumDate();
 		int lastNum = 0;
 		String lastDate = "";
-
-		for (File file : listOfFiles) {
-		    if (file.isFile()) {
-		    	String name = file.getName();
-		    	String beforeSlash = name.split("-")[0];
-		    	String afterUnderscore = beforeSlash.split("_")[1];
-		    	Integer runNumber = 0;
-		    	try{
-		    		runNumber = Integer.valueOf( afterUnderscore );
-		    	}catch(Exception e)
-		    	{
-		    		System.out.println("uno dei dati ha un nome atipico");
-		    	}
-		    	if( runNumber > lastNum )
-		    	{
-		    		lastNum = runNumber;
-		    		lastDate = name.split("-")[1] + " - " + name.split("-")[2] + " - " + name.split("-")[3];
-		    	}
-		    }
+		try{
+			for (File file : listOfFiles) {
+			    if (file.isFile()) {
+			    	String name = file.getName();
+			    	String beforeSlash = name.split("-")[0];
+			    	String afterUnderscore = beforeSlash.split("_")[1];
+			    	Integer runNumber = 0;
+			    	try{
+			    		runNumber = Integer.valueOf( afterUnderscore );
+			    	}catch(Exception e)
+			    	{
+			    		System.out.println("uno dei dati ha un nome atipico");
+			    	}
+			    	if( runNumber > lastNum )
+			    	{
+			    		lastNum = runNumber;
+			    		lastDate = name.split("-")[1] + " - " + name.split("-")[2] + " - " + name.split("-")[3];
+			    	}
+			    }
+			}
+			result.setNum(lastNum);
+			result.setDate(lastDate);
+		}catch(Exception e)
+		{
+			
 		}
-		result.setNum(lastNum);
-		result.setDate(lastDate);
-		
 		return result;
 	}
 	
