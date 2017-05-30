@@ -13,7 +13,39 @@ public class SendToExecute {
 	private String runM2 = "none";
 	private String path = "/";
 	
-
+	public String getRuns()
+	{
+		if( getCardinality().equalsIgnoreCase("single") )
+		{
+			return runS1;
+		}
+		else
+		{
+			return runM1 + " - " + runM2;
+		}
+	}
+	public String getCardinality()
+	{
+		if( !analysisSingle.equalsIgnoreCase("none") )
+		{
+			return "single";
+		}
+		else
+		{
+			return "multiple";
+		}
+	}
+	public String getUsedAnalysis()
+	{
+		if( !analysisSingle.equalsIgnoreCase("none") )
+		{
+			return analysisSingle;
+		}
+		else
+		{
+			return analysisMultiple;
+		}
+	}
 	public String getAnalysisSingle() {
 		return analysisSingle;
 	}

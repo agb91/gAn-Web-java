@@ -67,10 +67,10 @@
             </div>
             <div>
 			    <div id= 'run' style='display:block' name='disappearing'>
-		    		<h4>Runs selected : TODO <br>
-                    Kind of analysis selected: <span id='kindAnalysis'> TODO </span></h4><br>
+		    		<h4>Runs selected : ${runs} <br>
+                    Kind of analysis selected: <span id='kindAnalysis'>  ${ analysis } </span></h4><br>
                    
-                    QUI TESTO OOUTPUT MAGARI FORMATTATO
+                    ${ textualResult }
 		    	</div>
             </div>
         </div>
@@ -101,6 +101,7 @@
                 	"Right-click on the image for more options"  
             	</div>
 
+				<!-- here the image to repeat -->
 	            <div class = "row">
 	                <div class= "col-xs-12">
 	                    <div id = "verticalBlock" style = "display:block" class = "center" >

@@ -20,47 +20,39 @@ import com.example.demo.executor.SendToExecute;
 @RequestMapping("/execute")
 public class BashExecutor {
 	
-	private String pathTogAn = "/opt/lampp/htdocs/test-interChangeble/gAn-NEWWAY";
+	private String pathTogAn = "/opt/lampp/htdocs/test-interChangeble/gAn-SPERIMENTAL";
 	
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView getParameters( @ModelAttribute SendToExecute sendToExecute )
     {
-    	System.out.println(sendToExecute.toString());
-    	
     	ModelAndView mav = new ModelAndView();
-    	SendToExecute opr = new SendToExecute();
     	
-    	opr.setPath(pathTogAn);
+    	String cardinality = getCardinality( sendToExecute );
     	
-    	execute(opr);
+    	sendToExecute.setPath(pathTogAn);
+    	String textualResult = execute( sendToExecute, cardinality );
+    	
+    	mav.addObject("cardinality" , cardinality);
+    	mav.addObject("runs" , sendToExecute.getRuns() );
+    	mav.addObject("analysis" , sendToExecute.getUsedAnalysis());
+    	mav.addObject("textualResult" , textualResult);
+
     	mav.setViewName("executeView");
+    	
     	return mav;
     }
     
-    @RequestMapping(method = RequestMethod.GET)//just for testing
-    public ModelAndView getParametersGET()
-    {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	SendToExecute opr = new SendToExecute();
-    	opr.setPath(pathTogAn);
-    	execute(opr);
-    	mav.setViewName("executeView");
-    	return mav;
-    }
-    
-    private void execute(SendToExecute opr)
+	private String execute(SendToExecute opr, String cardinality)
     {
 		StringBuffer output = new StringBuffer();
 		String commandSingle = "./src/main/resources/static/script/gAnStartSingle.sh";
 		String commandMultiple = "./src/main/resources/static/script/gAnStartMultiple.sh";
 		
-		
 		Process p;
 		try {
 			
 			String commandWithArgs; 
-			if( opr.getRunM2().equalsIgnoreCase("none") )
+			if( cardinality.equalsIgnoreCase("single") )
 			{ //single
 				commandWithArgs = commandSingle + " " + opr.getPath() + " " + opr.getRunS1() 
 				+ " " + opr.getAnalysisSingle();
@@ -81,8 +73,7 @@ public class BashExecutor {
 				output.append(line + "\n");
 				System.out.println(line + " \n ");
 			}
-			while ((line = reader2.readLine())!= null) {
-				output.append(line + "\n");
+			while ((line = reader2.readLine())!= null) { //just for debug!
 				System.out.println(line + " \n ");
 			}
 
@@ -90,7 +81,18 @@ public class BashExecutor {
 			e.printStackTrace();
 		}
 
-		System.out.println( output.toString() );
+		return output.toString();
     }
+	
+	private String getCardinality(SendToExecute sendToExecute) {
+		if( sendToExecute.getRunM2().equalsIgnoreCase("none") )
+		{
+			return "single";
+		}
+		else
+		{
+			return "multiple";
+		}
+	}
 
 }
