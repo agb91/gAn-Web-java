@@ -32,6 +32,8 @@ public class BashExecutor {
     	sendToExecute.setPath(pathTogAn);
     	String textualResult = execute( sendToExecute, cardinality );
     	
+    	System.out.println("parameters: " + sendToExecute.toString() );
+    	
     	mav.addObject("cardinality" , cardinality);
     	mav.addObject("runs" , sendToExecute.getRuns() );
     	mav.addObject("analysis" , sendToExecute.getUsedAnalysis());
@@ -70,7 +72,7 @@ public class BashExecutor {
 			
 			String line = "";
 			while ((line = reader.readLine())!= null) {
-				output.append(line + "\n");
+				output.append(line + "<br>");
 				System.out.println(line + " \n ");
 			}
 			while ((line = reader2.readLine())!= null) { //just for debug!

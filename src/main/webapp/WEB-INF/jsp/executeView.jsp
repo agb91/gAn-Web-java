@@ -67,7 +67,8 @@
             </div>
             <div>
 			    <div id= 'run' style='display:block' name='disappearing'>
-		    		<h4>Runs selected : ${runs} <br>
+			    	<span id="cardinality">${cardinality}</span>
+		    		<h4>Runs selected : <span id="getRuns">${runs}</span> <br>
                     Kind of analysis selected: <span id='kindAnalysis'>  ${ analysis } </span></h4><br>
                    
                     ${ textualResult }
@@ -89,11 +90,13 @@
         <div id = "picturesTab" class = "imagesGeneral" >
 		    <div id="imagesName" hidden></div>
 	   			<div class='centerTextAlign'>
-			    	<span class='well centerTextAlign'>
-					    <label id='inputCheck' style=display:none;' class='checkbox-inline'>
-					    	<input id='inputCheckValue' checked='checked' type='checkbox' onclick='showSingleImage()' />
-					    	<span id='check'></span>
-					    </label>
+   					<span class='well centerTextAlign'>
+						<c:forEach var = "i" begin = "1" end = "20">
+						    <label id='inputCheck${i}' style=display:none; class='checkbox-inline'>
+						    	<input id='inputCheckValue${i}' checked='checked' type='checkbox' value='${i}' onclick='showSingleImage(${i})' />
+						    	<span id='check${i}'></span>
+						    </label>
+						</c:forEach>
 					</span>
 				</div>
 				<br><br>
@@ -105,9 +108,10 @@
 	            <div class = "row">
 	                <div class= "col-xs-12">
 	                    <div id = "verticalBlock" style = "display:block" class = "center" >
-							<div id='image' style='width: 100%'>
-							</div>
-	                    </div>
+							<c:forEach var = "i" begin = "1" end = "20">
+								<div id='image${i}' style='width: 100%'></div>
+							</c:forEach>
+						</div>
 	                </div>   
 	            </div>
  
