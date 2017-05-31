@@ -59,19 +59,34 @@
 			<br>
 		
 			<div class="well col-xs-6">
-				<!-- for! -->
-				<h4 class="col-xs-12" id="header' . $i . '"> possible values: </h4>
+				<h4 class="col-xs-12"> Campo1 possible values: </h4>
 				<div class="dropdown col-xs-6">
-					<button id="button' . $i . '" class="btn btn-primary dropdown-toggle buttonWidth" type="button" data-toggle="dropdown"><text id="buttonT' . $i . '"></text>
+					<button id="buttonCampo1" class="btn btn-primary dropdown-toggle buttonWidth" type="button" data-toggle="dropdown">
+						${readXml.campo1}
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li><a href="#" onclick="changer' . '(' . $i . ',0)">No</a></li>
-						<li><a href="#" onclick="changer' . '(' . $i . ',1)">Yes</a></li>
+						<li><a href="#" onclick="changeCampo1(0)">No</a></li>
+						<li><a href="#" onclick="changeCampo1(1)">Yes</a></li>
 					</ul>
 				</div> 
 				<div class="col-xs-6">
-					<label id="label' . $i . '"> nome1 now:  </label>
+					<label id="labelCampo1"> campo1 now: ${readXml.campo1} </label>
+				</div>
+				
+				<h4 class="col-xs-12"> Campo2 possible values: </h4>
+				<div class="dropdown col-xs-6">
+					<button id="buttonCampo2" class="btn btn-primary dropdown-toggle buttonWidth" type="button" data-toggle="dropdown">
+						${readXml.campo2}
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#" onclick="changeCampo2(0)">No</a></li>
+						<li><a href="#" onclick="changeCampo2(1)">Yes</a></li>
+					</ul>
+				</div> 
+				<div class="col-xs-6">
+					<label id="labelCampo2"> campo2 now: ${readXml.campo2} </label>
 				</div>
 			</div>
 		</div>
