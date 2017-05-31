@@ -211,9 +211,9 @@
 						        <div class="col-xs-4 centerTextAlign">
 							    </div>
 						        <div class="col-xs-4 centerTextAlign">
-			                        <button onclick="window.location.href='../EDITCONFIG/editConfig.php'" type="submit" class="settingButton btn btn-primary moveUpSetting"> Advanced Settings</button>     
+			                        <button onclick="window.location.href='config'" type="submit" class="settingButton btn btn-primary moveUpSetting"> Advanced Settings</button>     
 			                    </div>
-					           </div>   
+					    	</div>   
                         </div>
 
 
@@ -308,7 +308,7 @@
 			   			        <div class = "col-xs-4 centerTextAlign" ></div>    
 						        <div class = "col-xs-4 centerTextAlign"></div>
 						        <div class = "col-xs-4 centerTextAlign">
-									<button onclick="window.location.href='../EDITCONFIG/editConfig.php'" type="submit" class="settingButton btn btn-primary moveUpSetting"> Advanced Settings</button>	
+									<button onclick="window.location.href='config.php'" type="submit" class="settingButton btn btn-primary moveUpSetting"> Advanced Settings</button>	
 								</div>
 				            </div>                         
 						</div> 

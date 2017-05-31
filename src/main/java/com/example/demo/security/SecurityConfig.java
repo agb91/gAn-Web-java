@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	  auth.inMemoryAuthentication().withUser("general").password("prova").roles("USER");
+	  auth.inMemoryAuthentication().withUser("aegis").password("GetHbar!17").roles("USER");
 	}
 
 	@Override
