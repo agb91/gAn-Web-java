@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" title="Look at the images created by running gAn">
-                    <a class = 'nav-link' onclick = 'showImages()' >
+                    <a class = 'nav-link' onclick='showImages()' >
                         <h3> Images output </h3>
                     </a>
                 </li>
@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="nav-item" data-toggle='tooltip' title='Return to the Homepage of this gAn-Web'>
-                    <a class="nav-link" href="../index.php">
+                    <a class="nav-link" href="home">
                         <h3> New Analysis </h3>    
                     </a>
                 </li>

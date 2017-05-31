@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class XmlObject implements Serializable{
 	
-	private String campo1;
-	private String campo2;
+	private String campo1 = "defaut1";
+	private String campo2 = "default2";
 	
 	public String getCampo1() {
 		return campo1;
@@ -21,6 +21,11 @@ public class XmlObject implements Serializable{
 	
 	public void setCampo2(String campo2) {
 		this.campo2 = campo2;
+	}
+	
+	public String toString()
+	{
+		return "campo1: " + campo1 + "; campo2: " + campo2;
 	}
 
 }

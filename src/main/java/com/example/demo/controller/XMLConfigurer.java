@@ -26,21 +26,21 @@ public class XMLConfigurer {
     public ModelAndView showXml()
     {
     	ModelAndView mav = new ModelAndView();
-    	//XmlObject read = new XmlObject();
+    	XmlObject read = new XmlObject();
     	
     	//read = xmlManager.convertFromXMLToObject(path);
-    	//mav.addObject("readXml", read);
+    	read.setCampo1("test1");
+    	read.setCampo2("test2");
+    	mav.addObject("readXml", read);
     	mav.setViewName("configView");
         return mav;
     }
     
-    @RequestMapping(value="/set", method = RequestMethod.GET)
-    public void writeXml( @RequestParam("campo1") String campo1 , @RequestParam("campo2") String campo2 )
+    @RequestMapping(value="/set" ,method = RequestMethod.GET)
+    public void writeXml( XmlObject xmlObject )
     {
-    	XmlObject write = new XmlObject();
-    	write.setCampo1(campo1);
-    	write.setCampo2(campo2);
-    	xmlManager.convertFromObjectToXML(write, path);
+    	System.out.println( "in WriteXMl received the object: " + xmlObject.toString() );
+    	//xmlManager.convertFromObjectToXML(xmlObject, path);
     }
     
 
