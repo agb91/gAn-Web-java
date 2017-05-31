@@ -25,6 +25,7 @@ public class BashExecutor {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView getParameters( @ModelAttribute SendToExecute sendToExecute )
     {
+    	System.out.println( "params: " + sendToExecute.toString() );
     	ModelAndView mav = new ModelAndView();
     	
     	String cardinality = getCardinality( sendToExecute );

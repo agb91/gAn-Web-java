@@ -1,5 +1,8 @@
 package com.example.demo.executor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,6 +15,17 @@ public class SendToExecute {
 	private String runM1 = "none";
 	private String runM2 = "none";
 	private String path = "/";
+	private String inputArea = "none";
+	
+	public List<String> getRunsFromInputArea()
+	{
+		inputArea = inputArea.trim().replaceAll(" ", "").replaceAll(";", "-").replaceAll(",", "-");
+		String runs[] = inputArea.split("-");
+		List<String> result = new ArrayList<String>();
+		result.add( runs[0] );
+		result.add( runs[1] );
+		return result;
+	}
 	
 	public String getRuns()
 	{
@@ -21,12 +35,21 @@ public class SendToExecute {
 		}
 		else
 		{
-			return runM1 + " - " + runM2;
+			if( !runM1.equalsIgnoreCase("none") && !runM2.equalsIgnoreCase("none") 
+				&& !runM1.equalsIgnoreCase("") && !runM2.equalsIgnoreCase("")	)
+			{
+				return runM1 + " - " + runM2;
+			}
+			else
+			{
+				List<String> runs = getRunsFromInputArea(); 
+				return runs.get(0) + " - " + runs.get(1);
+			}
 		}
 	}
 	public String getCardinality()
 	{
-		if( !analysisSingle.equalsIgnoreCase("none") )
+		if( !analysisSingle.equalsIgnoreCase("none") && !analysisSingle.equalsIgnoreCase("") )
 		{
 			return "single";
 		}
@@ -37,7 +60,7 @@ public class SendToExecute {
 	}
 	public String getUsedAnalysis()
 	{
-		if( !analysisSingle.equalsIgnoreCase("none") )
+		if( !analysisSingle.equalsIgnoreCase("none") && !analysisSingle.equalsIgnoreCase("") )
 		{
 			return analysisSingle;
 		}
@@ -65,26 +88,47 @@ public class SendToExecute {
 		this.runS1 = runS1;
 	}
 	public String getRunM1() {
-		return runM1;
+		if( !runM1.equalsIgnoreCase("none") && !runM1.equalsIgnoreCase("") )
+		{
+			return runM1;
+		}
+		else
+		{
+			return getRunsFromInputArea().get(0);
+		}
 	}
 	public void setRunM1(String runM1) {
 		this.runM1 = runM1;
 	}
 	public String getRunM2() {
-		return runM2;
+		if( !runM2.equalsIgnoreCase("none") && !runM2.equalsIgnoreCase(""))
+		{
+			return runM2;
+		}
+		else
+		{
+			return getRunsFromInputArea().get(1);
+		}
 	}
 	public void setRunM2(String runM2) {
 		this.runM2 = runM2;
-	}
-	public String toString()
-	{
-		return this.runS1 + "---" + this.runM1 + "|" + this.runM2 + ";;;" + this.analysisSingle + "|" + this.analysisMultiple;
 	}
 	public String getPath() {
 		return path;
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public String getInputArea() {
+		return inputArea;
+	}
+	public void setInputArea(String inputArea) {
+		this.inputArea = inputArea;
+	}
+	public String toString()
+	{
+		return getRunS1() + "|" + getRunM1() + "|" + getRunM2() + ";;;" + this.analysisSingle + "|" 
+				+ this.analysisMultiple + "; area: |" + inputArea + "|";
 	}
 	
 }

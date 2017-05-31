@@ -121,7 +121,7 @@
                                                 </div>
                                             </div> 
                                             <div id="areaBlock" hidden >
-                                                <textarea class="form-control styleArea" rows="5" id="comment" onKeyUp="saveTextualInput()"></textarea>
+                                                <textarea class="form-control styleArea" rows="5" id="inputArea" name="inputArea"></textarea>
                                             </div>   
                                         </div>
                                         <div class = "col-xs-4 ridge" data-toggle='tooltip' title='Select an analysis from the dropdown menu; this will be applied to the selected run'>
